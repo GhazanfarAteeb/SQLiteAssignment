@@ -48,8 +48,12 @@ public class SignUpActivity extends AppCompatActivity {
                             email.getText().toString().trim(),
                             password.getText().toString().trim()
                     );
+
                     Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, HomeScreenActivity.class));
+                    Intent intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("username", email.getText().toString().trim());
+                    intent.putExtra("password", password.getText().toString().trim());
+                    startActivity(intent);
                 } else {
                     password.setError("Password must be same");
                     confirmPassword.setError("Password must be same");

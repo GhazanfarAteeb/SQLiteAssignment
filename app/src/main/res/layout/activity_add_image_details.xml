@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".Activities.AddImageDetailsActivity">
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/ic_back"
+		android:layout_marginTop="20dp"
+		android:layout_marginStart="20dp"
+		android:id="@+id/iv_back"/>
+		<LinearLayout
+			android:layout_below="@id/iv_back"
+			android:gravity="center"
+			android:padding="30dp"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<EditText
+				android:id="@+id/et_location"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/location_of_image"
+				android:inputType="text" />
+			<EditText
+				
+				android:hint="@string/description"
+				android:id="@+id/et_description"
+				android:layout_width="match_parent"
+				android:layout_height="100dp"
+				android:inputType="text|textMultiLine"
+				android:gravity="top"/>
+			<RelativeLayout
+				android:id="@+id/rl_pic_container"
+				android:orientation="vertical"
+				android:padding="16dp"
+				android:background="@drawable/doted_border"
+				android:layout_marginTop="8dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:id="@+id/tv_add_picture"
+					android:text="@string/add_picture"
+					android:layout_centerInParent="true"
+					android:drawablePadding="8dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					app:drawableLeftCompat="@drawable/ic_file" />
+				
+				<ImageView
+					android:adjustViewBounds="true"
+					android:cropToPadding="false"
+					android:scaleType="fitXY"
+					android:id="@+id/iv_receipt_pic"
+					android:layout_centerInParent="true"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:contentDescription="@null" />
+			</RelativeLayout>
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/add"
+				android:id="@+id/button_ok"
+				android:layout_marginTop="10dp" />
+		</LinearLayout>
+</RelativeLayout>

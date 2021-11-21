@@ -5,7 +5,7 @@ public class ImageModel {
     String location;
     String locationDescription;
     String path;
-    public static int userID;
+    int userID;
 
     public int getID() {
         return ID;
@@ -39,12 +39,12 @@ public class ImageModel {
         this.path = path;
     }
 
-    public static int getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public static void setUserID(int userID) {
-        ImageModel.userID = userID;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
 }

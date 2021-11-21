@@ -36,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
             if (validateUsername && validatePassword) {
                 Cursor data = databaseHelper.fetchUser(databaseHelper.getReadableDatabase(), usernameText, passwordText);
                 if(data.moveToFirst()) {
-                    startActivity(new Intent(this, HomeScreenActivity.class));
+                    Intent intent = new Intent(this, HomeScreenActivity.class);
+                    intent.putExtra("username", usernameText);
+                    intent.putExtra("password", passwordText);
+                    startActivity(intent);
                 }
             }
         });

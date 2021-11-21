@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_IMAGE_ID = "id";
     public static final String COL_IMAGE_PATH = "path";
     public static final String COL_IMAGE_LOCATION_DESCRIPTION = "locationDescription";
-    public static final String COL_LOCATION_NAME = "locationName";
+    public static final String COL_IMAGE_LOCATION_NAME = "locationName";
     public static final String COL_IMAGE_TABLE_USER_ID = "userID";
 
     public DatabaseHelper(@Nullable Context context) {
@@ -44,10 +44,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_IMAGES_TABLE =
                 "CREATE TABLE " + IMAGES_TABLE + "("
                         + COL_IMAGE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + COL_LOCATION_NAME +" TEXT NOT NULL, "
-                        + COL_IMAGE_LOCATION_DESCRIPTION + "TEXT NOT NULL, "
-                        + COL_IMAGE_PATH + "TEXT NOT NULL, "
-                        + COL_IMAGE_TABLE_USER_ID + "INT NOT NULL)";
+                        + COL_IMAGE_LOCATION_NAME +" TEXT NOT NULL, "
+                        + COL_IMAGE_LOCATION_DESCRIPTION + " TEXT NOT NULL, "
+                        + COL_IMAGE_PATH + " TEXT NOT NULL, "
+                        + COL_IMAGE_TABLE_USER_ID + " INT NOT NULL)";
 
         sqLiteDatabase.execSQL(CREATE_USER_TABLE);
         sqLiteDatabase.execSQL(CREATE_IMAGES_TABLE);
@@ -73,6 +73,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery(
                 "SELECT * FROM " + USERS_TABLE + " WHERE " + COL_USER_USERNAME + "=?"+ " AND " + COL_USER_PASSWORD + "=?"
                 ,new String[] {username, password});
+    }
+
+    public void addImage(SQLiteDatabase sqLiteDatabase, String locationName, String locationDescription, String imagePath, int userID) {
+        ContentValues values = new ContentValues();
+        values.put(COL_IMAGE_LOCATION_NAME, locationName);
+        values.put(COL_IMAGE_LOCATION_DESCRIPTION, locationDescription);
+        values.put(COL_IMAGE_PATH, imagePath);
+        values.put(COL_IMAGE_TABLE_USER_ID, userID);
+
+        sqLiteDatabase.insert(IMAGES_TABLE, null, values);
+
     }
 
     @Override
