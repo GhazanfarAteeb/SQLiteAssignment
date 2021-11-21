@@ -1,11 +1,21 @@
 package com.app.sqliteassignment.Models;
 
+import android.graphics.Bitmap;
+
 public class ImageModel {
     int ID;
     String location;
     String locationDescription;
-    String path;
+    Bitmap image;
     int userID;
+
+    public ImageModel(int ID, String location, String locationDescription, Bitmap image, int userID) {
+        this.ID = ID;
+        this.location = location;
+        this.locationDescription = locationDescription;
+        this.image = image;
+        this.userID = userID;
+    }
 
     public int getID() {
         return ID;
@@ -31,12 +41,11 @@ public class ImageModel {
         this.locationDescription = locationDescription;
     }
 
-    public String getPath() {
-        return path;
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
-
-    public void setPath(String path) {
-        this.path = path;
+    public Bitmap getImage() {
+        return image;
     }
 
     public int getUserID() {

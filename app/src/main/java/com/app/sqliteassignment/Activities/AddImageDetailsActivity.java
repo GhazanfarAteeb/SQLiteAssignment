@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
 import com.app.sqliteassignment.R;
@@ -32,15 +33,18 @@ public class AddImageDetailsActivity extends AppCompatActivity {
     private TextView tvAddPicture;
     private ImageView ivImage;
     private Bitmap bitmap;
+    static File directory;
     Button okButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image_details);
 
-        ivImage = findViewById(R.id.iv_receipt_pic);
+        ivImage = findViewById(R.id.iv_image);
         tvAddPicture = findViewById(R.id.tv_add_picture);
         RelativeLayout rl = findViewById(R.id.rl_pic_container);
+
+        Bundle bundle = getIntent().getExtras();
 
         okButton = findViewById(R.id.button_ok);
         okButton.setOnClickListener(view -> {
@@ -48,7 +52,7 @@ public class AddImageDetailsActivity extends AppCompatActivity {
                 ContextWrapper cw = new ContextWrapper(getApplicationContext());
                 /* path to /data/data/your app/app_data/imageDir */
                 FileOutputStream fos;
-                File directory = cw.getDir("images", Context.MODE_PRIVATE);
+                directory = cw.getDir("images", Context.MODE_PRIVATE);
                 // Create imageDir
                 String FILENAME = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
                 FILENAME += ".jpg";
@@ -60,15 +64,19 @@ public class AddImageDetailsActivity extends AppCompatActivity {
                 String location = ((EditText) findViewById(R.id.et_location)).getText().toString().trim();
                 String description = ((EditText) findViewById(R.id.et_description)).getText().toString().trim();
                 databaseHelper.addImage(databaseHelper.getReadableDatabase(), location, description, FILENAME, HomeScreenActivity.userID);
-
+                Toast.makeText(this,"Data added successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, HomeScreenActivity.class);
+                startActivity(intent);
             } catch (Exception e ) {
                 e.printStackTrace();
             }
         });
         rl.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .start(AddImageDetailsActivity.this));
+                .start(AddImageDetailsActivity.this)
+        );
 
+        ((ImageView) findViewById(R.id.iv_back)).setOnClickListener(view ->startActivity(new Intent(this, HomeScreenActivity.class)));
     }
 
     @Override

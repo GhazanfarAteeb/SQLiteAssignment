@@ -14,4 +14,8 @@
 		android:layout_marginBottom="20dp"
 		android:id="@+id/fab"
 		android:src="@drawable/ic_baseline_add_24"/>
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/recycler_view"/>
 </RelativeLayout>
