@@ -1,0 +1,16 @@
+<resources>
+	<string name="app_name">Remember The Location</string>
+	<string name="sign_in">Sign In</string>
+	<string name="password">Password</string>
+	<string name="username">Username</string>
+	<string name="new_user">New User?</string>
+	<string name="sign_up_underlined"><u>Sign Up</u></string>
+	<string name="sign_up">Sign Up</string>
+	<string name="please_fill_in_this_form_to_create_account">Please fill in this form to create account</string>
+	<string name="first_name">First Name</string>
+	<string name="last_name">Last Name</string>
+	<string name="email">Email</string>
+	<string name="confirm_password">Confirm Password</string>
+	<string name="already_a_user">Already a user</string>
+	<string name="sign_in_underlined"><u>Sign In</u></string>
+</resources>
