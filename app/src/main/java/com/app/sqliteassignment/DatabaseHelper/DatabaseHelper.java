@@ -93,6 +93,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    public void removeImage(SQLiteDatabase sqLiteDatabase, int imageId) {
+        sqLiteDatabase.execSQL("DELETE FROM "+  IMAGES_TABLE + " WHERE "+COL_IMAGE_ID+"="+imageId);
+    }
+
     public Cursor getImage(SQLiteDatabase sqLiteDatabase, int imageID) {
         return sqLiteDatabase.rawQuery(
                 "SELECT * FROM " + IMAGES_TABLE + " WHERE "+ COL_IMAGE_ID + "="+imageID,

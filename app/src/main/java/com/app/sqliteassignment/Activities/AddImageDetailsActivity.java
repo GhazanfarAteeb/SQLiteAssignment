@@ -117,6 +117,7 @@ public class AddImageDetailsActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
 
                 try {
+
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                     Glide.with(this).load(resultUri).asBitmap().into(ivImage);
                     tvAddPicture.setVisibility(View.GONE);
