@@ -1,9 +1,7 @@
 package com.app.sqliteassignment.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.sqliteassignment.Activities.HomeScreenActivity;
-import com.app.sqliteassignment.Activities.UpdateImageActivity;
 import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
 import com.app.sqliteassignment.Models.ImageModel;
 import com.app.sqliteassignment.R;

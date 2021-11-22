@@ -1,6 +1,5 @@
 package com.app.sqliteassignment.Models;
 
-import android.graphics.Bitmap;
 
 public class ImageModel {
     int ID;
@@ -21,39 +20,20 @@ public class ImageModel {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getLocationDescription() {
         return locationDescription;
     }
 
-    public void setLocationDescription(String locationDescription) {
-        this.locationDescription = locationDescription;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
     public String getImage() {
         return image;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
 }

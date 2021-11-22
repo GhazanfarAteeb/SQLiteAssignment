@@ -2,34 +2,20 @@ package com.app.sqliteassignment.Activities;
 
 import static com.app.sqliteassignment.DatabaseHelper.DatabaseHelper.COL_IMAGE_ID;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
 import com.app.sqliteassignment.Models.ImageModel;
 import com.app.sqliteassignment.R;
 import com.app.sqliteassignment.adapters.ImageAdapter;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 
 public class HomeScreenActivity extends AppCompatActivity  {
