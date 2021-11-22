@@ -1,5 +1,6 @@
 package com.app.sqliteassignment.Activities;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,16 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
@@ -31,52 +31,70 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddImageDetailsActivity extends AppCompatActivity {
-    private TextView tvAddPicture;
-    private ImageView ivImage;
+
+public class UpdateImageActivity extends AppCompatActivity {
+   private ImageView ivImage;
     private Bitmap bitmap;
     RelativeLayout rl;
+    DatabaseHelper databaseHelper;
     Button okButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_image_details);
+        setContentView(R.layout.activity_update_image);
+
+        EditText etLocation = findViewById(R.id.et_location);
+        EditText etDescription = findViewById(R.id.et_description);
+
+        databaseHelper = new DatabaseHelper(this);
 
         ivImage = findViewById(R.id.iv_image);
-        tvAddPicture = findViewById(R.id.tv_add_picture);
+
         rl = findViewById(R.id.rl_pic_container);
         Bundle bundle = getIntent().getExtras();
+        int pathIndex = 0;
+        final File[] f = {null};
+        Cursor data = databaseHelper.getImage(databaseHelper.getReadableDatabase(),bundle.getInt(DatabaseHelper.COL_IMAGE_ID));
+        if (data.moveToFirst()) {
+            int locationIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
+            int locationDescriptionIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
+            pathIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH);
 
+            etLocation.setText(data.getString(locationIndex));
+            etDescription.setText(data.getString(locationDescriptionIndex));
+            Glide.with(this).load(data.getString(pathIndex)).asBitmap().into(ivImage);
+
+        }
         okButton = findViewById(R.id.button_ok);
+        int finalPathIndex = pathIndex;
         okButton.setOnClickListener(view -> {
             try {
-                /* path to /data/data/your app/app_data/imageDir */
                 FileOutputStream fos;
-                // Create imageDir
-                String FILENAME = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".jpeg";
-                File f = new File(new ContextWrapper(getApplicationContext()).getDir("images", Context.MODE_PRIVATE),FILENAME);
-                fos = new FileOutputStream(f);
-                if (bitmap!=null) {
+
+                if (bitmap != null) {
+                /* path to /data/data/your app/app_data/imageDir */
+                    // Create imageDir
+                    String FILENAME = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".jpeg";
+                    f[0] = new File(new ContextWrapper(getApplicationContext()).getDir("images", Context.MODE_PRIVATE),FILENAME);
+                    fos = new FileOutputStream(f[0]);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                } else {
-                    tvAddPicture.setError("Field should not be empty");
-                    rl.setBackground(getResources().getDrawable(R.drawable.dotted_border_error));
+                    fos.close();
                 }
 
-                fos.close();
 
-                DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
-                EditText etLocation = findViewById(R.id.et_location);
-                EditText etDescription = findViewById(R.id.et_description);
                 boolean etLocationValidation = validateText(etLocation);
                 boolean etDescriptionValidation = validateText(etDescription);
 
-                if (etLocationValidation && etDescriptionValidation && bitmap != null) {
+                if (etLocationValidation && etDescriptionValidation) {
                     String location = etLocation.getText().toString().trim();
                     String description = etDescription.getText().toString().trim();
 
-                    databaseHelper.addImage(databaseHelper.getReadableDatabase(), location, description, f.getPath(), HomeScreenActivity.userID);
+                    if (bitmap!=null) {
+                        databaseHelper.updateImage(databaseHelper.getReadableDatabase(), location, description, f[0].getPath(), bundle.getInt(DatabaseHelper.COL_IMAGE_ID));
+                    } else {
+                        databaseHelper.updateImage(databaseHelper.getReadableDatabase(), location, description, data.getString(finalPathIndex), bundle.getInt(DatabaseHelper.COL_IMAGE_ID));
+
+                    }
                     databaseHelper.close();
                     Toast.makeText(this,"Data added successfully", Toast.LENGTH_SHORT).show();
 
@@ -91,7 +109,7 @@ public class AddImageDetailsActivity extends AppCompatActivity {
         });
         rl.setOnClickListener(v -> CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .start(AddImageDetailsActivity.this)
+                .start(UpdateImageActivity.this)
         );
 
         findViewById(R.id.iv_back).setOnClickListener(view ->{
@@ -119,7 +137,6 @@ public class AddImageDetailsActivity extends AppCompatActivity {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                     Glide.with(this).load(resultUri).asBitmap().into(ivImage);
-                    tvAddPicture.setVisibility(View.GONE);
                     rl.setBackground(getResources().getDrawable(R.drawable.doted_border));
                 } catch (IOException ioException) {
                     ioException.printStackTrace();

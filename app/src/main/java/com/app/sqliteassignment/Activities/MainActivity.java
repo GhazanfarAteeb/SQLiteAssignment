@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
 import com.app.sqliteassignment.R;
@@ -24,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        ((android.widget.TextView) findViewById(R.id.tv_sign_up)).setOnClickListener(view -> startActivity(new Intent(this, SignUpActivity.class)));
+        findViewById(R.id.tv_sign_up).setOnClickListener(view -> startActivity(new Intent(this, SignUpActivity.class)));
 
-        ((android.widget.Button) findViewById(R.id.button_Sign_in)).setOnClickListener(view -> {
+        findViewById(R.id.button_Sign_in).setOnClickListener(view -> {
             String usernameText = username.getText().toString().trim();
             String passwordText = password.getText().toString().trim();
 
@@ -39,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, HomeScreenActivity.class);
                     intent.putExtra("username", usernameText);
                     intent.putExtra("password", passwordText);
+                    databaseHelper.close();
                     startActivity(intent);
+                    data.close();
+                } else {
+                    Toast.makeText(this, "The username or password is incorrect", Toast.LENGTH_SHORT).show();
                 }
             }
         });

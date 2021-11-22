@@ -1,6 +1,8 @@
 package com.app.sqliteassignment.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +13,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.sqliteassignment.Activities.HomeScreenActivity;
+import com.app.sqliteassignment.Activities.UpdateImageActivity;
+import com.app.sqliteassignment.DatabaseHelper.DatabaseHelper;
 import com.app.sqliteassignment.Models.ImageModel;
 import com.app.sqliteassignment.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>{
     Context context;
     List<ImageModel> imagesList;
+    PassData passDataListener;
     public ImageAdapter(Context context) {
         this.context = context;
     }
@@ -31,11 +39,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ImageAdapter.ViewHolder holder, int position) {
         ImageModel imageData = imagesList.get(position);
-        holder.ivImage.setImageBitmap(imageData.getImage());
+        Glide.with(context).load(imageData.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivImage);
         holder.tvLocation.setText(imageData.getLocation());
         holder.tvLocationDescription.setText(imageData.getLocationDescription());
         holder.itemView.setOnClickListener(view ->{
-            Toast.makeText(context,"I am clicked"+position,Toast.LENGTH_SHORT).show();
+
+            Bundle data = new Bundle();
+            data.putInt(DatabaseHelper.COL_IMAGE_ID, imageData.getID());
+            passDataListener.sendData(data);
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
+            }
         });
     }
 
@@ -59,5 +77,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>{
     public void setData(List<ImageModel> imagesList) {
         this.imagesList = imagesList;
         notifyDataSetChanged();
+    }
+
+    public void setPassDataListener(PassData passData) {
+        this.passDataListener = passData;
+    }
+
+    public interface PassData {
+        void sendData(Bundle bundle);
     }
 }

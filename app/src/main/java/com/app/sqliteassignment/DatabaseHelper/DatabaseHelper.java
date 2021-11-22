@@ -85,6 +85,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(IMAGES_TABLE, null, values);
 
     }
+    public void updateImage(SQLiteDatabase sqLiteDatabase, String locationName, String locationDescription, String imagePath, int imageID) {
+        sqLiteDatabase.execSQL("UPDATE " + DatabaseHelper.IMAGES_TABLE + " SET "
+            + COL_IMAGE_LOCATION_NAME + "='"+locationName + "', "
+            + COL_IMAGE_LOCATION_DESCRIPTION + "='"+locationDescription + "', "
+            + COL_IMAGE_PATH + "='"+ imagePath + "' WHERE "+COL_IMAGE_ID+"="+imageID
+        );
+    }
+
+    public Cursor getImage(SQLiteDatabase sqLiteDatabase, int imageID) {
+        return sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + IMAGES_TABLE + " WHERE "+ COL_IMAGE_ID + "="+imageID,
+                null);
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

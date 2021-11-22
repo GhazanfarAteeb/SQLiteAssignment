@@ -62,11 +62,23 @@
 					android:layout_height="wrap_content"
 					android:contentDescription="@null" />
 			</RelativeLayout>
-			<Button
+			<LinearLayout
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/add"
-				android:id="@+id/button_ok"
-				android:layout_marginTop="10dp" />
+				android:gravity="center_horizontal">
+				<Button
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/cancel"
+					android:id="@+id/button_cancel"
+					android:layout_marginTop="10dp" />
+				<Button
+					android:layout_marginStart="25dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/add"
+					android:id="@+id/button_ok"
+					android:layout_marginTop="10dp" />
+			</LinearLayout>
 		</LinearLayout>
 </RelativeLayout>

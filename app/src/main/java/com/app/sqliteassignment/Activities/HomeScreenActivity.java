@@ -1,5 +1,7 @@
 package com.app.sqliteassignment.Activities;
 
+import static com.app.sqliteassignment.DatabaseHelper.DatabaseHelper.COL_IMAGE_ID;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 
-public class HomeScreenActivity extends AppCompatActivity {
+public class HomeScreenActivity extends AppCompatActivity  {
     static int userID;
     DatabaseHelper databaseHelper;
     RecyclerView recyclerView;
@@ -50,17 +52,30 @@ public class HomeScreenActivity extends AppCompatActivity {
             int colIndex = data.getColumnIndex(DatabaseHelper.COL_USER_ID);
             userID = data.getInt(colIndex);
         }
-
+        data.close();
         adapter = new ImageAdapter(this);
         imageList = new ArrayList<>();
         setData();
 
         findViewById(R.id.fab).setOnClickListener(view-> {
+            recyclerView.removeAllViews();
+            databaseHelper.close();
             Intent intent = new Intent(this,AddImageDetailsActivity.class);
             intent.putExtra("username",bundle.getString("username"));
             intent.putExtra("password" ,bundle.getString("password"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+        ImageAdapter.PassData passData = bundle1 -> {
+            Intent intent = new Intent(HomeScreenActivity.this, UpdateImageActivity.class);
+            intent.putExtra("username", bundle.getString("username"));
+            intent.putExtra("password" , bundle.getString("password"));
+            intent.putExtra(COL_IMAGE_ID, bundle1.getInt(COL_IMAGE_ID));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        };
+        adapter.setPassDataListener(passData);
+
     }
 
     @Override
@@ -76,29 +91,31 @@ public class HomeScreenActivity extends AppCompatActivity {
             int locationIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
             int locationDescriptionIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
             int userIDIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_TABLE_USER_ID);
-            int imageIDIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_ID);
-
-            Bitmap bitmap = null;
+            int imageIDIndex = cursor.getColumnIndex(COL_IMAGE_ID);
 
             try {
                 int pathIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH);
-                ContextWrapper cw = new ContextWrapper(getApplicationContext());
-                File f=new File(cw.getDir("images", Context.MODE_PRIVATE), cursor.getString(pathIndex));
-                bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+
                 imageList.add(new ImageModel(
                         cursor.getInt(imageIDIndex),
                         cursor.getString(locationIndex),
                         cursor.getString(locationDescriptionIndex),
-                        bitmap,
+                        cursor.getString(pathIndex),
                         cursor.getInt(userIDIndex)
                 ));
-                System.out.println(f.getAbsolutePath());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        adapter.setData(imageList);
+        cursor.close();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.setData(imageList);
+
+    }
+
 }

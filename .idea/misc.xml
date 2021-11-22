@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.270703125" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/bg_sign_in.xml" value="0.25" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/bg_sign_up.xml" value="0.270703125" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/doted_border.xml" value="0.270703125" />
+        <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/dotted_border_error.xml" value="0.153515625" />
+        <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_back.xml" value="0.1" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.270703125" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_file.xml" value="0.270703125" />
+        <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_name.xml" value="0.3609375" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_password.xml" value="0.270703125" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/drawable/ic_username.xml" value="0.270703125" />
@@ -16,6 +20,7 @@
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/layout/activity_home_screen.xml" value="0.25" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/layout/activity_update_image.xml" value="0.23394808743169399" />
         <entry key="..\:/Android/SQLiteAssignment/app/src/main/res/layout/item_images_detail.xml" value="0.1680327868852459" />
       </map>
     </option>

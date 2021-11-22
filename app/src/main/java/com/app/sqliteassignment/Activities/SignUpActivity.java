@@ -51,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, HomeScreenActivity.class);
+                    databaseHelper.close();
                     intent.putExtra("username", email.getText().toString().trim());
                     intent.putExtra("password", password.getText().toString().trim());
                     startActivity(intent);
@@ -61,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        ((android.widget.TextView) findViewById(R.id.tv_sign_in)).setOnClickListener(view -> startActivity(new Intent(this, MainActivity.class)));
+        findViewById(R.id.tv_sign_in).setOnClickListener(view -> startActivity(new Intent(this, MainActivity.class)));
     }
 
     private boolean validateEmail(EditText field) {

@@ -6,10 +6,10 @@ public class ImageModel {
     int ID;
     String location;
     String locationDescription;
-    Bitmap image;
+    String image;
     int userID;
 
-    public ImageModel(int ID, String location, String locationDescription, Bitmap image, int userID) {
+    public ImageModel(int ID, String location, String locationDescription, String image, int userID) {
         this.ID = ID;
         this.location = location;
         this.locationDescription = locationDescription;
@@ -41,10 +41,10 @@ public class ImageModel {
         this.locationDescription = locationDescription;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
