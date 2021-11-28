@@ -57,7 +57,7 @@ public class UpdateImageActivity extends AppCompatActivity {
         Cursor data = databaseHelper.getImage(databaseHelper.getReadableDatabase(),bundle.getInt(DatabaseHelper.COL_IMAGE_ID));
         if (data.moveToFirst()) {
             int locationIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
-            int locationDescriptionIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
+            int locationDescriptionIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_DESCRIPTION);
             pathIndex = data.getColumnIndex(DatabaseHelper.COL_IMAGE_PATH);
 
             etLocation.setText(data.getString(locationIndex));
@@ -96,7 +96,7 @@ public class UpdateImageActivity extends AppCompatActivity {
 
                     }
                     databaseHelper.close();
-                    Toast.makeText(this,"Data added successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Data updated successfully", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(this, HomeScreenActivity.class);
                     intent.putExtra("username",bundle.getString("username"));

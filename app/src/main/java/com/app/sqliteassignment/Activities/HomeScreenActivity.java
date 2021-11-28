@@ -75,7 +75,7 @@ public class HomeScreenActivity extends AppCompatActivity  {
 
         while(cursor.moveToNext()) {
             int locationIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
-            int locationDescriptionIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_NAME);
+            int locationDescriptionIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_LOCATION_DESCRIPTION);
             int userIDIndex = cursor.getColumnIndex(DatabaseHelper.COL_IMAGE_TABLE_USER_ID);
             int imageIDIndex = cursor.getColumnIndex(COL_IMAGE_ID);
 
@@ -101,6 +101,7 @@ public class HomeScreenActivity extends AppCompatActivity  {
     public void onResume() {
         super.onResume();
         adapter.setData(imageList);
+        adapter.notifyDataSetChanged();
 
     }
 
